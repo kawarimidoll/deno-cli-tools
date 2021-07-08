@@ -1,7 +1,7 @@
 allow:
   - write=app.log
   # - read
-  # - net
+  - net
   - env
 envFile:
   - .env
@@ -10,6 +10,7 @@ scripts:
   start:
     desc: Runs main script
     cmd: main.ts
+    unstable: true
   dev:
     desc: Starts local server
     cmd: deployctl run --libs="" --watch ./server.ts
