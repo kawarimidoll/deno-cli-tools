@@ -1,13 +1,6 @@
 // https://dev.to/soubai/build-cli-tool-with-deno-1me7
 
-import ky from "https://cdn.skypack.dev/ky?dts";
-
-import {
-  blue,
-  bold,
-  green,
-  red,
-} from "https://deno.land/std@0.100.0/fmt/colors.ts";
+import { blue, bold, green, ky, red } from "../deps.ts";
 
 async function shortify(url = ""): Promise<string> {
   // simple url validation
