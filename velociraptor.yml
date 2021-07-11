@@ -2,18 +2,15 @@ allow:
   - write=app.log
   # - read
   - net
-  - env
-envFile:
-  - .env
+#   - env
+# envFile:
+#   - .env
 
 scripts:
   start:
     desc: Runs main script
     cmd: main.ts
     unstable: true
-  dev:
-    desc: Starts local server
-    cmd: deployctl run --libs="" --watch ./server.ts
   test: deno test
   # test: echo 'There is no test now.'
   lint: deno lint
