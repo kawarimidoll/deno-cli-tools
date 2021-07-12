@@ -1,5 +1,4 @@
-import { parse } from "https://deno.land/std@0.100.0/flags/mod.ts";
-import { resolve } from "https://deno.land/std@0.100.0/path/mod.ts";
+import { parse } from "./deps.ts";
 import { denotree } from "./mod.ts";
 
 const {
@@ -42,19 +41,18 @@ if (!u) {
   const outStr = new TextDecoder().decode(await process.output());
   process.close();
   const ignoredList = outStr.replace(/^[^!].+$/gm, "").replace(/^!! /mg, "")
-    .split("\n").filter((item) => item).concat(".git");
+    .split("\n").filter((item) => item);
 
   ignoredList.forEach((str) => {
     skip.push(new RegExp(str.replace(".", "\\.")));
   });
 }
 
-console.log(dir);
-await denotree(resolve(Deno.cwd(), String(dir)), "", {
+await denotree(String(dir), {
   maxDepth: L,
   includeFiles: !d,
   followSymlinks: false,
-  exts: undefined,
-  match: undefined,
+  exts: undefined, // TODO: implement this
+  match: undefined, // TODO: implement this
   skip,
 });

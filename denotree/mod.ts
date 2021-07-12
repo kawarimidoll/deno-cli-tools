@@ -1,4 +1,4 @@
-import { join } from "https://deno.land/std@0.100.0/path/mod.ts";
+import { join, resolve } from "./deps.ts";
 
 // ref: WalkEntry and WalkOptions
 // in  https://deno.land/std@0.100.0/fs/mod.ts
@@ -34,7 +34,7 @@ function include(
   return true;
 }
 
-export async function denotree(
+async function walkTree(
   root: string,
   prefix = "",
   {
@@ -70,7 +70,7 @@ export async function denotree(
   for await (const entry of sortedEntries) {
     const branch = entry === lastOne ? "└── " : "├── ";
 
-    const suffix = (entry.isDirectory) ? "/" : "";
+    const suffix = entry.isDirectory ? "/" : "";
 
     if (include(entry.path, exts, match, skip)) {
       console.log(prefix + branch + entry.name + suffix);
@@ -78,7 +78,7 @@ export async function denotree(
 
     if (entry.isDirectory && entry.name !== ".git") {
       const indent = entry === lastOne ? "  " : "│  ";
-      await denotree(entry.path, prefix + indent, {
+      await walkTree(entry.path, prefix + indent, {
         maxDepth: maxDepth - 1,
         includeFiles,
         followSymlinks,
@@ -87,5 +87,16 @@ export async function denotree(
         skip,
       });
     }
+  }
+}
+
+export async function denotree(root: string, treeOptions: TreeOptions = {}) {
+  const resolvedRoot = resolve(Deno.cwd(), root);
+  const stat = await Deno.stat(resolvedRoot);
+  if (stat.isDirectory) {
+    console.log(root + "/");
+    await walkTree(resolvedRoot, "", treeOptions);
+  } else {
+    console.log(root);
   }
 }
