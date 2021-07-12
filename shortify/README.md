@@ -10,7 +10,7 @@ https://dev.to/soubai/build-cli-tool-with-deno-1me7
 ### as CLI
 
 ```
-$ deno install --allow-net --force https://github.com/kawarimidoll/deno-cli-tools/shortify/cli.ts
+$ deno install --allow-net --force https://github.com/kawarimidoll/deno-cli-tools/raw/main/shortify/cli.ts
 
 $ shortify https://github.com/
 ```

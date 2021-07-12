@@ -1,22 +1,32 @@
-import { ansi } from "./deps.ts";
+import { Command } from "./deps.ts";
 
-// console.log(ansi.cursorUp.cursorLeft.eraseDown());
-// console.log(ansi.cursorUp(2).cursorLeft.eraseDown(2).toString());
-// await Deno.stdout.write(ansi.cursorUp.cursorLeft.eraseDown.toBuffer());
-
-const response = await fetch(
-  "https://storage.googleapis.com/zenn-user-upload/avatar/2379ac8d86.jpeg",
-);
-const imageBuffer: ArrayBuffer = await response.arrayBuffer();
-
-console.log(
-  ansi.cursorTo(0, 0) +
-    ansi.eraseDown() +
-    ansi.image(imageBuffer, {
-      width: 29,
-      preserveAspectRatio: true,
-    }) +
-    "\n" +
-    ansi.link("Deno Land", "https://deno.land") +
-    "\n",
-);
+await new Command()
+  .description("Main command.")
+  .option("-a, --aa", "Main command option.")
+  .command("command1 <file|dir>")
+  .description("Command1 description.")
+  .option("-b, --bb", "Command1 option.")
+  //   .action((options: any, source: string, destination: string) => {
+  //     console.log("Command1");
+  //     console.log(options);
+  //     console.log(source);
+  //     console.log(destination);
+  //   })
+  //   .command("command2", new Command())
+  //   .description("Command2 description.")
+  //   .option("-c, --cc", "Command2 option.")
+  //   .action((options: any, source: string, destination: string) => {
+  //     console.log("Command2");
+  //     console.log(options);
+  //     console.log(source);
+  //     console.log(destination);
+  //   })
+  //   .reset() // reset command pointer
+  //   .option("-e, --ee", "Second main command option.")
+  //   .action((options: any, source: string, destination: string) => {
+  //     console.log("Main command");
+  //     console.log(options);
+  //     console.log(source);
+  //     console.log(destination);
+  //   })
+  .parse(Deno.args);
