@@ -1,7 +1,15 @@
-import { commandWithVersion } from "./deps.ts";
+import { commandWithVersion, readLines } from "./deps.ts";
 import { denosay, denoshout, denothink } from "./mod.ts";
 
 try {
+  const stdin = [];
+  const isatty = Deno.isatty(Deno.stdin.rid);
+  if (!isatty) {
+    for await (const line of readLines(Deno.stdin)) {
+      stdin.push(line);
+    }
+  }
+
   const { options, args } = await commandWithVersion.name("denosay")
     .description("Say your awesome text with ascii art.")
     .option("-t, --think", "Change balloon to rounded.")
@@ -11,7 +19,7 @@ try {
     })
     .option("-r, --rain", "Make it rain.")
     .arguments("<text>")
-    .parse(Deno.args);
+    .parse(isatty ? Deno.args : [...Deno.args, stdin.slice(0, -1).join("\n")]);
 
   const {
     think,
