@@ -18,7 +18,7 @@ $ shortify https://github.com/
 ### as Deno module
 
 ```ts
-import { shortify } from "./mod.ts";
+import { shortify } from "https://github.com/kawarimidoll/deno-cli-tools/raw/main/shortify/mod.ts";
 
 await shortify("https://github.com/");
 ```
