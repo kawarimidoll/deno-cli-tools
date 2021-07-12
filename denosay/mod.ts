@@ -14,7 +14,7 @@ function surround(cover: [string, string], text: string, padding = " ") {
   return cover[0] + padding + text + padding + cover[1];
 }
 
-function formatBalloon(text: string, delimiters: Delimiters) {
+function renderBalloon(text: string, delimiters: Delimiters) {
   if (!text) {
     throw new Error("Input text is required");
   }
@@ -51,30 +51,48 @@ function formatBalloon(text: string, delimiters: Delimiters) {
 }
 
 const AA = String.raw`
-    $
-     $  _
-       ( ･ヽ
-         \ \
-          ⎞ \
-          |  ｀ヽ
-          ⎩      ﾄ､
-           u¯u︶u
+,   $T   ,   '  ,  '   , '
+  '  $T  _     ,  '  ,
+  ,    ( $Eヽ,   , ,    ,
+,   ,  , \ \   ,     ,
+   ,  '  ,⎞ \    ,  ,  '
+ ,    ,   |  ｀ヽ ,    , '
+'  ,   ,  ⎩      ﾄ､ ,   ,
+     '   ' u¯u︶u     '
 `;
-// const deno = String.raw`
-// ,      ,   ,   ,  ,
-//  , ( ･ヽ  ,  ,   ,
-//   ,  \ \   ,    ,  ,
-//   ,   , ⎞ \    ,    ,
-//   ,   |  ｀ヽ   ,  ,
-//  ,  , ⎩      ﾄ､   ,
-//        u¯u︶u
+
+// const AA = String.raw`
+//     \
+//      \  _
+//        ( ･ヽ
+//          \ \
+//           ⎞ \
+//           |  ｀ヽ
+//           ⎩      ﾄ､
+//            u¯u︶u
 // `;
 
-function render(text: string, thoughts: string, delimiters: Delimiters) {
-  return formatBalloon(text, delimiters) + AA.replaceAll("$", thoughts);
+function renderAA(thoughts = " ", eye = "･", rain = false): string {
+  return (rain ? AA : AA.replaceAll(/,|'/g, " ")).replaceAll("$T", thoughts)
+    .replace("$E", eye);
 }
 
-export function say(text: string) {
+function render(
+  text: string,
+  delimiters: Delimiters,
+  thoughts: string,
+  options: DenosayOptions = {},
+) {
+  return renderBalloon(text, delimiters) +
+    renderAA(thoughts, options.eye, options.rain);
+}
+
+export type DenosayOptions = {
+  eye?: string;
+  rain?: boolean;
+};
+
+export function denosay(text: string, options: DenosayOptions = {}) {
   const delimiters: Delimiters = {
     first: ["/", "\\"],
     middle: ["|", "|"],
@@ -82,10 +100,10 @@ export function say(text: string) {
     only: ["<", ">"],
     vertical: ["_", "-"],
   };
-  return render(text, "\\", delimiters);
+  return render(text, delimiters, "\\", options);
 }
 
-export function think(text: string) {
+export function denothink(text: string, options: DenosayOptions = {}) {
   const delimiters: Delimiters = {
     first: ["(", ")"],
     middle: ["(", ")"],
@@ -93,10 +111,10 @@ export function think(text: string) {
     only: ["(", ")"],
     vertical: ["◠", "◡"],
   };
-  return render(text, "o", delimiters);
+  return render(text, delimiters, "o", options);
 }
 
-export function shout(text: string) {
+export function denoshout(text: string, options: DenosayOptions = {}) {
   const delimiters: Delimiters = {
     first: ["<", ">"],
     middle: ["<", ">"],
@@ -104,5 +122,5 @@ export function shout(text: string) {
     only: ["<", ">"],
     vertical: ["^", "v"],
   };
-  return render(text, "o", delimiters);
+  return render(text, delimiters, "\\", options);
 }
