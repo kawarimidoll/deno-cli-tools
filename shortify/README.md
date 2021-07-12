@@ -5,6 +5,10 @@ Simple URL shortener.
 This is inspired from this article:
 https://dev.to/soubai/build-cli-tool-with-deno-1me7
 
+## Required permissions
+
+- `--allow-net`: to access to `https://cleanuri.com/api/` to shorten URL.
+
 ## Usage
 
 ### as CLI
