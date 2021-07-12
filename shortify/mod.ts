@@ -2,7 +2,7 @@
 
 import { blue, bold, green, ky, red } from "../deps.ts";
 
-async function shortify(url = ""): Promise<string> {
+async function getShortURL(url = ""): Promise<string> {
   // simple url validation
   new URL(url);
 
@@ -14,12 +14,13 @@ async function shortify(url = ""): Promise<string> {
   return response.result_url;
 }
 
-try {
-  const url = Deno.args[0];
-  const shortUrl = await shortify(url);
+export async function shortify(url = ""): Promise<void> {
+  try {
+    const shortUrl = await getShortURL(url);
 
-  console.log(blue(bold("Long URL:")), url);
-  console.log(green(bold("Short URL:")), shortUrl);
-} catch (error) {
-  console.log(red(`Error: ${error}`));
+    console.log(blue(bold("Long URL:")), url);
+    console.log(green(bold("Short URL:")), shortUrl);
+  } catch (error) {
+    console.log(red(`Error: ${error}`));
+  }
 }
