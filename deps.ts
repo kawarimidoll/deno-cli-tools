@@ -4,16 +4,6 @@ export {
   assertThrows,
 } from "https://deno.land/std@0.100.0/testing/asserts.ts";
 
-export {
-  blue,
-  bold,
-  green,
-  red,
-} from "https://deno.land/std@0.100.0/fmt/colors.ts";
-
-import ky from "https://cdn.skypack.dev/ky?dts";
-export { ky };
-
 // export {
 //   ansi,
 //   colors,
