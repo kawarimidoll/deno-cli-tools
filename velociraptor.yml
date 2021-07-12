@@ -1,18 +1,15 @@
 allow:
-  - write=app.log
+  # - write
   # - read
   - net
-#   - env
-# envFile:
-#   - .env
 
 scripts:
   start:
     desc: Runs main script
     cmd: main.ts
     unstable: true
-  test: deno test
-  # test: echo 'There is no test now.'
+  # test: deno test
+  test: echo 'There is no test now.'
   lint: deno lint
   fmt: deno fmt
   ci:
