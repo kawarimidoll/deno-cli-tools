@@ -19,6 +19,8 @@ $ deno install --allow-read --allow-run --force https://github.com/kawarimidoll/
 $ denotree
 ```
 
+`--reload` flag may be needed when updating.
+
 ### as Deno module
 
 ```ts

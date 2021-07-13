@@ -19,6 +19,8 @@ $ deno install --allow-net --force https://github.com/kawarimidoll/deno-cli-tool
 $ shortify https://github.com/
 ```
 
+`--reload` flag may be needed when updating.
+
 ### as Deno module
 
 ```ts

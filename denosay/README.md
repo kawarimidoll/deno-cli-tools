@@ -18,6 +18,8 @@ $ deno install --force https://github.com/kawarimidoll/deno-cli-tools/raw/main/d
 $ denosay hello
 ```
 
+`--reload` flag may be needed when updating.
+
 ### as Deno module
 
 ```ts
