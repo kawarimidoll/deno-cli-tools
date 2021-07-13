@@ -14,7 +14,7 @@ https://dev.to/soubai/build-cli-tool-with-deno-1me7
 ### as CLI
 
 ```
-$ deno install --allow-net --force https://github.com/kawarimidoll/deno-cli-tools/raw/main/shortify/cli.ts
+$ deno install --allow-net --force https://github.com/kawarimidoll/deno-cli-tools/raw/v0.1.1/shortify/cli.ts
 
 $ shortify https://github.com/
 ```
@@ -24,7 +24,7 @@ $ shortify https://github.com/
 ### as Deno module
 
 ```ts
-import { shortify } from "https://github.com/kawarimidoll/deno-cli-tools/raw/main/shortify/mod.ts";
+import { shortify } from "https://github.com/kawarimidoll/deno-cli-tools/raw/v0.1.1/shortify/mod.ts";
 
 await shortify("https://github.com/");
 ```

@@ -14,7 +14,7 @@ This automatically ignores `.git` directories and respects `.gitignore`.
 ### as CLI
 
 ```
-$ deno install --allow-read --allow-run --force https://github.com/kawarimidoll/deno-cli-tools/raw/main/denotree/cli.ts
+$ deno install --allow-read --allow-run --force https://github.com/kawarimidoll/deno-cli-tools/raw/v0.1.1/denotree/cli.ts
 
 $ denotree
 ```
@@ -24,7 +24,7 @@ $ denotree
 ### as Deno module
 
 ```ts
-import { denotree } from "https://github.com/kawarimidoll/deno-cli-tools/raw/main/denotree/mod.ts";
+import { denotree } from "https://github.com/kawarimidoll/deno-cli-tools/raw/v0.1.1/denotree/mod.ts";
 
 await denotree();
 ```

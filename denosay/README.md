@@ -13,7 +13,7 @@ This is inspired from this project: https://github.com/piuccio/cowsay
 ### as CLI
 
 ```
-$ deno install --force https://github.com/kawarimidoll/deno-cli-tools/raw/main/denosay/cli.ts
+$ deno install --force https://github.com/kawarimidoll/deno-cli-tools/raw/v0.1.1/denosay/cli.ts
 
 $ denosay hello
 ```
@@ -23,7 +23,7 @@ $ denosay hello
 ### as Deno module
 
 ```ts
-import { denosay } from "https://github.com/kawarimidoll/deno-cli-tools/raw/main/denosay/mod.ts";
+import { denosay } from "https://github.com/kawarimidoll/deno-cli-tools/raw/v0.1.1/denosay/mod.ts";
 
 await denosay("hello");
 ```
