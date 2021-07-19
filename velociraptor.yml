@@ -4,20 +4,46 @@ allow:
   - net
 
 scripts:
-  start:
+  main:
     desc: Runs main script
     cmd: main.ts
-    unstable: true
-  # test: deno test
-  test: echo 'There is no test now.'
-  lint: deno lint
-  fmt: deno fmt
-  ci:
-    - vr lint
-    - vr fmt --check
-    - vr test
+
+  deps:
+    desc: Update dependencies with ensuring pass tests
+    cmd: udd deps.ts --test="vr test"
+
+  lint:
+    cmd: deno lint
+    desc: Runs lint
+
+  fmt:
+    cmd: deno fmt
+    desc: Runs format
+
   pre-commit:
-    cmd:
-      - vr lint
-      - vr fmt
+    cmd: |
+      FILES=$(git diff --staged --name-only --diff-filter=ACMR "*.ts")
+      [ -z "$FILES" ] && exit 0
+      echo "$FILES" | xargs deno lint
+      echo "$FILES" | xargs deno fmt
+      # echo "$FILES" | xargs git add
+    desc: Lints and formats staged files
     gitHook: pre-commit
+
+  test:
+    # cmd: deno test --reload --coverage=cov_profile
+    cmd: echo 'There is no test now.'
+    desc: Runs the tests
+    gitHook: pre-push
+
+  cov:
+    cmd: deno coverage cov_profile
+    desc: Shows uncovered lists
+
+  ci:
+    cmd:
+      - deno lint
+      - deno fmt --check
+      # - deno test --reload
+      - echo 'There is no test now.'
+    desc: Runs lint, check format and test
