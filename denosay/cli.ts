@@ -33,7 +33,7 @@ try {
     })
     .option("-r, --rain", "Make it rain.")
     .arguments("<text>")
-    .parse(isatty ? Deno.args : [...Deno.args, stdin.slice(0, -1).join("\n")]);
+    .parse(isatty ? Deno.args : [...Deno.args, stdin.join("\n")]);
 
   const {
     think,

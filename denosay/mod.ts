@@ -78,6 +78,7 @@ function renderAA(thoughts = " ", eye = "･", rain = false): string {
       "Invalid eye parameter. This must be a single width character.",
     );
   }
+
   return (rain ? AA : AA.replaceAll(/,|'/g, " ")).replaceAll("$T", thoughts)
     .replace("$E", eye);
 }
