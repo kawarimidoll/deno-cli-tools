@@ -126,6 +126,7 @@ cmd = [
   "gh",
   "release",
   "create",
+  title,
   "--draft",
   "--title",
   title,
