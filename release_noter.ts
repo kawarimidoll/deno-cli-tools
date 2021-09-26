@@ -5,7 +5,7 @@
 import { groupBy } from "https://deno.land/std@0.108.0/collections/group_by.ts";
 import { mapValues } from "https://deno.land/std@0.108.0/collections/map_values.ts";
 import { sortBy } from "https://deno.land/std@0.108.0/collections/sort_by.ts";
-// import { open } from "https://deno.land/x/open@v0.0.2/index.ts";
+import { open } from "https://deno.land/x/open@v0.0.2/index.ts";
 
 async function runCommand(
   cmd: string[],
@@ -140,16 +140,6 @@ if (!status.success) {
 }
 console.log(out);
 
-// cmd = ["git", "remote", "get-url", "origin"];
-// [status, out, err] = await runCommand(cmd, { trim: true });
-// if (!status.success) {
-//   console.error(err);
-//   Deno.exit(status.code);
-// }
-//
-// const url = out.replace(/^git@(.+):/, "$1").replace(/\.git$|\/$/, "") +
-//   "/releases";
-//
-// if (confirm("Open release page? : " + url)) {
-//   open(url);
-// }
+if (confirm("Open release page?")) {
+  open(out);
+}
