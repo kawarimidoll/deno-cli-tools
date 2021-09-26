@@ -122,7 +122,16 @@ if (!title) {
   Deno.exit(1);
 }
 
-cmd = ["gh", "release", "--draft", "--title", title, "--notes", output];
+cmd = [
+  "gh",
+  "release",
+  "create",
+  "--draft",
+  "--title",
+  title,
+  "--notes",
+  output,
+];
 [status, out, err] = await runCommand(cmd, { trim: true });
 if (!status.success) {
   console.error(err);
