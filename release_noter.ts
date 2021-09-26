@@ -39,16 +39,26 @@ async function runCommand(
   }
 }
 
-let cmd = ["git", "describe", "--tags", "--abbrev=0"];
+let cmd = ["git", "diff", "--name-status", "origin/HEAD", "HEAD"];
 let [status, out, err] = await runCommand(cmd, { trim: true });
-
-const currentTag = out;
-console.log("current latest tag:", currentTag);
-
 if (!status.success) {
   console.error(err);
   Deno.exit(status.code);
 }
+if (out) {
+  console.error("There is diff between local and remote.");
+  Deno.exit(1);
+}
+
+cmd = ["git", "describe", "--tags", "--abbrev=0"];
+[status, out, err] = await runCommand(cmd, { trim: true });
+if (!status.success) {
+  console.error(err);
+  Deno.exit(status.code);
+}
+
+const currentTag = out;
+console.log("current latest tag:", currentTag);
 
 // out = "0.1.0"; // for check
 const prefixes = [
@@ -118,14 +128,15 @@ if (!status.success) {
   console.error(err);
   Deno.exit(status.code);
 }
-
-cmd = ["git", "remote", "get-url", "origin"];
-[status, out, err] = await runCommand(cmd, { trim: true });
-if (!status.success) {
-  console.error(err);
-  Deno.exit(status.code);
-}
 console.log(out);
+
+// cmd = ["git", "remote", "get-url", "origin"];
+// [status, out, err] = await runCommand(cmd, { trim: true });
+// if (!status.success) {
+//   console.error(err);
+//   Deno.exit(status.code);
+// }
+//
 // const url = out.replace(/^git@(.+):/, "$1").replace(/\.git$|\/$/, "") +
 //   "/releases";
 //
